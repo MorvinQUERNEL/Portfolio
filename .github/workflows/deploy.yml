@@ -40,92 +40,31 @@ jobs:
           localDir: 'projet-1/build' # Le dossier local à transférer
           remoteDir: '/public_html' # Le dossier cible sur Hostinger
 
-  # Job pour le déploiement du Back-end (Symfony)
-  deploy-backend:
-    runs-on: ubuntu-latest # Utilise un runner GitHub hébergé
-    needs: deploy-frontend # Ce job ne commencera qu'après que 'deploy-frontend' soit terminé avec succès
+  # Job pour le déploiement du Back-end (Symfony) - TEMPORAIREMENT DÉSACTIVÉ
+  # deploy-backend:
+  #   runs-on: ubuntu-latest # Utilise un runner GitHub hébergé
+  #   needs: deploy-frontend # Ce job ne commencera qu'après que 'deploy-frontend' soit terminé avec succès
 
-    steps:
-      - name: 🗂️ Checkout du code du dépôt
-        uses: actions/checkout@v4 # Récupère le code de votre dépôt
-
-      - name: 🐘 Configuration de PHP et Composer
-        uses: shivammathur/setup-php@v2 # Action pour configurer PHP et Composer
-        with:
-          php-version: '8.2' # Mettez la version de PHP compatible avec votre projet Symfony (ex: '8.1', '8.2', '8.3')
-          extensions: mbstring, pdo_mysql, zip, gd # Ajoutez les extensions PHP nécessaires pour Symfony
-          tools: composer:v2 # Installe Composer v2
-
-      - name: 💻 Déploiement et Configuration du Back-end (Symfony) via SSH
-        uses: appleboy/ssh-action@v1.0.0 # Action GitHub pour se connecter et exécuter des commandes via SSH
-        with:
-          host: ${{ secrets.SSH_HOST }} # L'adresse IP ou le nom d'hôte de votre serveur Hostinger (VPS ou hébergement avec SSH)
-          username: ${{ secrets.SSH_USER }} # Votre nom d'utilisateur SSH sur Hostinger
-          key: ${{ secrets.SSH_KEY }} # Le contenu de votre clé privée SSH (stockée dans les secrets GitHub)
-          port: ${{ secrets.SSH_PORT }} # Le port SSH (généralement 22)
-
-          # Le script bash à exécuter sur votre serveur Hostinger
-          script: |
-            # --- IMPORTANT : MODIFIEZ CES CHEMINS EN FONCTION DE VOTRE HÉBERGEMENT HOSTINGER ---
-            #
-            # Ce chemin est le répertoire où votre application Symfony sera stockée sur le serveur.
-            # Idéalement, il devrait être en dehors du répertoire public_html pour des raisons de sécurité,
-            # et votre serveur web (Nginx/Apache) devrait être configuré pour servir le dossier 'public' de Symfony.
-            #
-            # Exemple pour un VPS : /home/votrenomutilisateur/portfolio_symfony_app
-            # Exemple pour un hébergement partagé : /home/uXXXXXXX/votredomaine.com/symfony_api_app (si vous voulez le mettre là)
-            # ASSUREZ-VOUS QUE CE CHEMIN EST ACCESSIBLE ET AYANT LES BONNES PERMISSIONS
-            SYMFONY_PROJECT_PARENT_DIR="/public_html" # Chemin racine Hostinger
-            SYMFONY_APP_DIR="$SYMFONY_PROJECT_PARENT_DIR/api" # Chemin vers la racine de votre projet Symfony
-            GIT_REPO_URL="https://github.com/MorvinQUERNEL/Portfolio.git"
-
-            echo "Création du répertoire parent si inexistant: $SYMFONY_PROJECT_PARENT_DIR"
-            mkdir -p $SYMFONY_PROJECT_PARENT_DIR
-
-            echo "Vérification et clonage/mise à jour du dépôt Git..."
-            # Clone dans un dossier temporaire pour extraire le backend
-            cd /tmp
-            rm -rf portfolio_temp
-            git clone $GIT_REPO_URL portfolio_temp
-            
-            echo "Création du dossier API: $SYMFONY_APP_DIR"
-            mkdir -p $SYMFONY_APP_DIR
-            
-            echo "Copie du backend Symfony depuis be/app/ vers $SYMFONY_APP_DIR"
-            # Copie tout le contenu du dossier be/app/ vers le dossier API
-            cp -r portfolio_temp/be/app/* $SYMFONY_APP_DIR/ 2>/dev/null || true
-            cp -r portfolio_temp/be/app/.[^.]* $SYMFONY_APP_DIR/ 2>/dev/null || true
-            
-            # Nettoyage du dossier temporaire
-            rm -rf portfolio_temp
-
-            echo "Navigation vers le dossier Symfony: $SYMFONY_APP_DIR"
-            cd $SYMFONY_APP_DIR
-
-            echo "Installation des dépendances Composer..."
-            # Installe les dépendances, exclut les dépendances de développement et optimise l'autoloader
-            composer install --no-dev --optimize-autoloader
-
-            echo "Exécution des migrations Doctrine (si vous en avez)..."
-            # Exécute les migrations de base de données. '--no-interaction' évite les questions interactives.
-            php bin/console doctrine:migrations:migrate --no-interaction
-
-            echo "Nettoyage et réchauffement du cache Symfony..."
-            # Nettoie et prépare le cache de Symfony pour la production
-            php bin/console cache:clear
-            php bin/console cache:warmup
-
-            echo "Installation des assets publics de Symfony..."
-            # Installe les assets des bundles Symfony dans le dossier 'public'
-            php bin/console assets:install public --symlink --relative
-
-            echo "Configuration des permissions (important !)"
-            # Ces commandes sont génériques et pourraient nécessiter des ajustements
-            # en fonction de la configuration spécifique de votre serveur Hostinger (utilisateur Apache/Nginx, etc.)
-            # Assurez-vous que le répertoire 'var' de Symfony est accessible en écriture par l'utilisateur du serveur web.
-            # Par exemple, pour un utilisateur 'www-data' (souvent Apache/Nginx):
-            # sudo setfacl -R -m u:www-data:rwX -m u:$(whoami):rwX var public/build
-            # sudo setfacl -dR -m u:www-data:rwX -m u:$(whoami):rwX var public/build
-            # chmod -R 775 var/cache var/log
-            echo "Veuillez vérifier les permissions manuellement sur votre serveur si vous rencontrez des erreurs."
-            echo "Déploiement du Back-end Symfony terminé !"
+  #   steps:
+  #     - name: 🗂️ Checkout du code du dépôt
+  #       uses: actions/checkout@v4 # Récupère le code de votre dépôt
+  # 
+  #     - name: 🐘 Configuration de PHP et Composer
+  #       uses: shivammathur/setup-php@v2 # Action pour configurer PHP et Composer
+  #       with:
+  #         php-version: '8.2' # Mettez la version de PHP compatible avec votre projet Symfony (ex: '8.1', '8.2', '8.3')
+  #         extensions: mbstring, pdo_mysql, zip, gd # Ajoutez les extensions PHP nécessaires pour Symfony
+  #         tools: composer:v2 # Installe Composer v2
+  # 
+  #     - name: 💻 Déploiement et Configuration du Back-end (Symfony) via SSH
+  #       uses: appleboy/ssh-action@v1.0.0 # Action GitHub pour se connecter et exécuter des commandes via SSH
+  #       with:
+  #         host: ${{ secrets.SSH_HOST }} # L'adresse IP ou le nom d'hôte de votre serveur Hostinger (VPS ou hébergement avec SSH)
+  #         username: ${{ secrets.SSH_USER }} # Votre nom d'utilisateur SSH sur Hostinger
+  #         key: ${{ secrets.SSH_KEY }} # Le contenu de votre clé privée SSH (stockée dans les secrets GitHub)
+  #         port: ${{ secrets.SSH_PORT }} # Le port SSH (généralement 22)
+  # 
+  #         # Le script bash à exécuter sur votre serveur Hostinger
+  #         script: |
+  #           # Backend deployment script will be re-enabled once frontend works
+  #           echo "Backend deployment temporarily disabled"
