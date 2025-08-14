@@ -40,31 +40,37 @@ jobs:
           localDir: 'projet-1/build' # Le dossier local à transférer
           remoteDir: '/public_html' # Le dossier cible sur Hostinger
 
-  # Job pour le déploiement du Back-end (Symfony) - TEMPORAIREMENT DÉSACTIVÉ
-  # deploy-backend:
-  #   runs-on: ubuntu-latest # Utilise un runner GitHub hébergé
-  #   needs: deploy-frontend # Ce job ne commencera qu'après que 'deploy-frontend' soit terminé avec succès
+  # Job pour le déploiement du Back-end (Symfony) via FTP
+  deploy-backend:
+    runs-on: ubuntu-latest
+    needs: deploy-frontend # Ce job ne commencera qu'après que 'deploy-frontend' soit terminé avec succès
 
-  #   steps:
-  #     - name: 🗂️ Checkout du code du dépôt
-  #       uses: actions/checkout@v4 # Récupère le code de votre dépôt
-  # 
-  #     - name: 🐘 Configuration de PHP et Composer
-  #       uses: shivammathur/setup-php@v2 # Action pour configurer PHP et Composer
-  #       with:
-  #         php-version: '8.2' # Mettez la version de PHP compatible avec votre projet Symfony (ex: '8.1', '8.2', '8.3')
-  #         extensions: mbstring, pdo_mysql, zip, gd # Ajoutez les extensions PHP nécessaires pour Symfony
-  #         tools: composer:v2 # Installe Composer v2
-  # 
-  #     - name: 💻 Déploiement et Configuration du Back-end (Symfony) via SSH
-  #       uses: appleboy/ssh-action@v1.0.0 # Action GitHub pour se connecter et exécuter des commandes via SSH
-  #       with:
-  #         host: ${{ secrets.SSH_HOST }} # L'adresse IP ou le nom d'hôte de votre serveur Hostinger (VPS ou hébergement avec SSH)
-  #         username: ${{ secrets.SSH_USER }} # Votre nom d'utilisateur SSH sur Hostinger
-  #         key: ${{ secrets.SSH_KEY }} # Le contenu de votre clé privée SSH (stockée dans les secrets GitHub)
-  #         port: ${{ secrets.SSH_PORT }} # Le port SSH (généralement 22)
-  # 
-  #         # Le script bash à exécuter sur votre serveur Hostinger
-  #         script: |
-  #           # Backend deployment script will be re-enabled once frontend works
-  #           echo "Backend deployment temporarily disabled"
+    steps:
+      - name: 🗂️ Checkout du code du dépôt
+        uses: actions/checkout@v4
+
+      - name: 🐘 Configuration de PHP et Composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo_mysql, zip, gd
+          tools: composer:v2
+
+      - name: 📦 Installation des dépendances Symfony
+        working-directory: ./be/app
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: 🧹 Nettoyage du cache et préparation
+        working-directory: ./be/app
+        run: |
+          php bin/console cache:clear --env=prod
+          chmod -R 755 var/
+
+      - name: 🚀 Déploiement du Back-end vers Hostinger via FTP
+        uses: sebastianpopp/ftp-action@releases/v2
+        with:
+          host: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          localDir: 'be/app'
+          remoteDir: '/public_html/api'
