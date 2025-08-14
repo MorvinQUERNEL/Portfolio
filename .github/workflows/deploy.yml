@@ -32,7 +32,7 @@ jobs:
         run: npm run build # Exécute la commande de build de React (crée le dossier 'build')
 
       - name: 🚀 Déploiement du Front-end vers Hostinger via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4 # Action GitHub pour le déploiement SFTP (plus adapté pour Hostinger)
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4 # Action GitHub pour le déploiement SFTP (adapté pour Hostinger)
         with:
           server: ${{ secrets.FTP_SERVER }} # L'adresse de votre serveur Hostinger
           username: ${{ secrets.FTP_USERNAME }} # Votre nom d'utilisateur Hostinger
