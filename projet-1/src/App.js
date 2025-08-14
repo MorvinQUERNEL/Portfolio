@@ -155,7 +155,10 @@ function App() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-gray-100/70 bg-white/70 backdrop-blur dark:border-gray-800/70 dark:bg-gray-950/70">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-          <a href="#accueil" className="text-lg font-semibold tracking-tight">Portfolio Morvin Quernel</a>
+                      <div className="flex items-center gap-3">
+              <img src="/mq_logo.png" alt="Logo" className="h-8 w-8" />
+              <a href="#accueil" className="text-lg font-semibold tracking-tight">Portfolio Morvin Quernel</a>
+            </div>
           <nav className="hidden gap-6 md:flex">
             <a href="#projets" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Projets</a>
             <a href="#apropos" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">À propos</a>
@@ -233,14 +236,25 @@ function App() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="relative"
             >
-              <div className="mx-auto w-80 h-auto overflow-hidden rounded-3xl bg-gradient-to-br from-blue-200 via-indigo-200 to-purple-200 shadow-2xl ring-1 ring-black/5 dark:from-blue-900/30 dark:via-indigo-900/30 dark:to-purple-900/30" data-aos="zoom-in">
+              <motion.div 
+                className="mx-auto w-80 h-auto overflow-hidden rounded-3xl bg-gradient-to-br from-blue-200 via-indigo-200 to-purple-200 shadow-2xl ring-1 ring-black/5 dark:from-blue-900/30 dark:via-indigo-900/30 dark:to-purple-900/30" 
+                data-aos="zoom-in"
+                animate={{
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
                 {/* Placeholder*/}
                 <img 
                   src={isDark ? "/background1.png" : "/background3.png"} 
                   alt="Background" 
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
             </motion.div>
           </div>
           <div className="mt-16 flex justify-center">
@@ -254,23 +268,38 @@ function App() {
 
       {/* Projects */}
       <section id="projets" className="mx-auto max-w-6xl px-4 py-16" data-aos="fade-up">
-        <div className="mb-8 flex items-end justify-between" data-aos="fade-up" data-aos-delay="50">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">Projets sélectionnés</h2>
-            <p className="mt-1 text-gray-600">Quelques réalisations récentes.</p>
-          </div>
-          <a href="#projets" className="text-sm font-medium text-blue-600 hover:text-blue-700">Voir tout →</a>
+        <div className="mb-8 text-center" data-aos="fade-up" data-aos-delay="50">
+          <h2 className="text-2xl font-bold tracking-tight">Dernier projet</h2>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-aos="fade-up" data-aos-delay="100">
+        <div className="flex justify-center" data-aos="fade-up" data-aos-delay="100">
           {/* Project principal */}
-          <article className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
+          <article className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-8 shadow-lg transition hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-gray-900 max-w-4xl w-full">
             <div className="absolute inset-0 -z-10 opacity-0 transition group-hover:opacity-100 bg-gradient-to-tr from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10" />
-            <h3 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">Quernel Auto</h3>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Projet de fin d'études. Site vitrine optimisé SEO et performance.</p>
-            <div className="mt-3 flex gap-2 text-sm text-gray-600 dark:text-gray-300">
-              <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium dark:border-gray-800 dark:bg-gray-800/50">Symfony</span>
-              <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium dark:border-gray-800 dark:bg-gray-800/50">Twig</span>
-              <span className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium dark:border-gray-800 dark:bg-gray-800/50">SQL</span>
+            <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white mb-2">Quernel Auto</h3>
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+              Plateforme moderne d'import/export de véhicules avec paiements sécurisés. 
+              Développé avec Symfony 6, cette solution offre une expérience utilisateur fluide 
+              pour l'achat et la vente de véhicules de qualité à l'international.
+            </p>
+            
+            <div className="mb-6">
+              <h4 className="text-sm font-semibold text-gray-500 mb-3">✨ Fonctionnalités principales</h4>
+              <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                <li>• Catalogue de véhicules avec recherche avancée</li>
+                <li>• Gestion des utilisateurs et profils personnalisés</li>
+                <li>• Paiements sécurisés via Stripe</li>
+                <li>• Interface d'administration complète</li>
+                <li>• Design responsive optimisé mobile</li>
+              </ul>
+            </div>
+            
+            <div className="flex flex-wrap gap-2 mb-6">
+              <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-800/50 dark:text-gray-200">Symfony 6.4+</span>
+              <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-800/50 dark:text-gray-200">PHP 8.1+</span>
+              <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-800/50 dark:text-gray-200">MySQL 8.0+</span>
+              <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-800/50 dark:text-gray-200">Docker</span>
+              <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-800/50 dark:text-gray-200">Stripe</span>
+              <span className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-800/50 dark:text-gray-200">Twig</span>
             </div>
             <div className="mt-5 flex items-center gap-4">
               <a href="https://quernelauto.fr" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700">
@@ -281,19 +310,6 @@ function App() {
               </a>
             </div>
           </article>
-          {projects.map((p) => (
-            <article key={p.title} className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
-              <div className="absolute inset-0 -z-10 opacity-0 transition group-hover:opacity-100 bg-gradient-to-tr from-blue-50 to-indigo-50 dark:from-blue-900/10 dark:to-indigo-900/10" />
-              <h3 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">{p.title}</h3>
-              <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{p.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {p.tags.map((t) => (
-                  <span key={t} className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-700 dark:border-gray-800 dark:bg-gray-800/50 dark:text-gray-200">{t}</span>
-                ))}
-              </div>
-              <a href={p.link} className="mt-5 inline-block text-sm font-medium text-blue-600 hover:text-blue-700">Voir le projet →</a>
-            </article>
-          ))}
         </div>
       </section>
 
@@ -303,7 +319,7 @@ function App() {
           <div>
             <h2 className="text-2xl font-bold tracking-tight">À propos</h2>
             <p className="mt-3 text-gray-700 dark:text-gray-300">
-              Ancien conducteur de métro (2017–2025) à la RATP, j’ai mené une reconversion vers le développement web avec une formation de six mois à l’EEDN (niveau 5). Cette expérience m’a apporté un sens aigu de la rigueur, de la sécurité et de la gestion des imprévus — des atouts que je mets aujourd’hui au service du code.
+            Ancien conducteur de métro (2017–2025) à la RATP, j’ai entamé une reconversion vers le développement web en suivant une formation de six mois à l’EEDN (niveau 5). Cette expérience m’a permis de développer un sens aigu de la rigueur, de la sécurité et de la gestion des imprévus, des compétences que je mets désormais au service du code. Actuellement, je suis à la recherche d’une alternance pour poursuivre mes études et approfondir mes compétences en développement web.
             </p>
             <ul className="mt-4 list-inside list-disc text-gray-700 dark:text-gray-300">
               {softSkills.map((s) => (
@@ -317,13 +333,23 @@ function App() {
               </a>
             </div>
           </div>
-          <div className="relative">
+          <motion.div 
+            className="relative shadow-2xl rounded-2xl"
+            animate={{
+              y: [0, -10, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
             <img 
               src={isDark ? "/background2.png" : "/background4.png"} 
               alt="Background" 
               className="aspect-[4/3] w-full overflow-hidden rounded-2xl object-cover"
             />
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -425,7 +451,7 @@ function App() {
 
       {/* Footer */}
       <footer className="border-t border-gray-100 py-8 text-center text-sm text-gray-600 dark:border-gray-800 dark:text-gray-400">
-        © {new Date().getFullYear()} Morvin — Tous droits réservés.
+        © {new Date().getFullYear()} Morvin Quernel.
       </footer>
     </div>
   );
