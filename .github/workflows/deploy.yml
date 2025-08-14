@@ -37,6 +37,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }} # L'adresse de votre serveur Hostinger
           username: ${{ secrets.FTP_USERNAME }} # Votre nom d'utilisateur Hostinger
           password: ${{ secrets.FTP_PASSWORD }} # Votre mot de passe Hostinger
+          port: ${{ secrets.SSH_PORT || '22' }} # Port SSH (22 par défaut, ou custom)
           local_path: './projet-1/build/*' # Le dossier local à transférer
           remote_path: '/public_html/' # Le dossier cible sur Hostinger
           sftp_only: true # Force l'utilisation de SFTP
