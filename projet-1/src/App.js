@@ -403,7 +403,7 @@ function App() {
         <div className="grid gap-10 md:grid-cols-2">
           <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <h2 className="text-2xl font-bold tracking-tight">Me contacter</h2>
-            <p className="mt-2 text-gray-700 dark:text-gray-300">Une entreprise qui recherche un alternant ? Écrivez‑moi, je vous répondrai rapidement.</p>
+            <p className="mt-2 text-gray-700 dark:text-gray-300">Une entreprise qui recherche un alternant? Écrivez‑moi, je vous répondrai rapidement.</p>
             <div className="mt-6 space-y-3 text-sm">
               <a href="tel:+33667337807" className="flex items-center gap-2 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"><FiPhone /> +33 6 67 33 78 07</a>
               <a href="mailto:quernel.morvin@icloud.com" className="flex items-center gap-2 text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"><FiMail /> quernel.morvin@icloud.com</a>
