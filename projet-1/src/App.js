@@ -155,7 +155,7 @@ function App() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-gray-100/70 bg-white/70 backdrop-blur dark:border-gray-800/70 dark:bg-gray-950/70">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-          <a href="#accueil" className="text-lg font-semibold tracking-tight">Mon Portfolio</a>
+          <a href="#accueil" className="text-lg font-semibold tracking-tight">Portfolio Morvin Quernel</a>
           <nav className="hidden gap-6 md:flex">
             <a href="#projets" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Projets</a>
             <a href="#apropos" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">À propos</a>
@@ -209,7 +209,7 @@ function App() {
               Mon approche allie rigueur, fiabilité et passion pour chaque projet, avec une attention particulière portée à la qualité du code, à l’expérience utilisateur et à la résolution de problèmes complexes. Que ce soit pour construire une application sur mesure, optimiser des processus ou collaborer sur des projets ambitieux, je mets mon expertise et mon engagement au service de solutions techniques adaptées et durables.
               </p>
               <p className="mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-300">
-              J'ai aquis de nombreuses compétences l'<a href="https://www.e-edn.fr/" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">EEDN</a>, une école des métiers du numérique qui m’a formé à la création d’applications web performantes et robustes.
+              J'ai aquis de nombreuses compétences l'<a href="https://www.eedn.fr/" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">EEDN</a>, une école des métiers du numérique qui m’a formé à la création d’applications web performantes et robustes.
               </p>
               <p>
               Actuellement à la recherche d’une alternance en tant que concepteur-développeur d’applications, je souhaite mettre mes compétences techniques et mon dynamisme au service d’une entreprise innovante, tout en poursuivant ma formation et mon apprentissage des bonnes pratiques du métier.
@@ -233,9 +233,13 @@ function App() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="relative"
             >
-              <div className="mx-auto aspect-square w-64 overflow-hidden rounded-3xl bg-gradient-to-br from-blue-200 via-indigo-200 to-purple-200 shadow-2xl ring-1 ring-black/5 dark:from-blue-900/30 dark:via-indigo-900/30 dark:to-purple-900/30" data-aos="zoom-in">
-                {/* Placeholder photo zone; remplacez par <img src="/photo.jpg" alt="Morvin" className="h-full w-full object-cover" /> */}
-                <div className="h-full w-full bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.7),rgba(255,255,255,0)_35%),radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.5),rgba(255,255,255,0)_40%)]" />
+              <div className="mx-auto w-80 h-auto overflow-hidden rounded-3xl bg-gradient-to-br from-blue-200 via-indigo-200 to-purple-200 shadow-2xl ring-1 ring-black/5 dark:from-blue-900/30 dark:via-indigo-900/30 dark:to-purple-900/30" data-aos="zoom-in">
+                {/* Placeholder*/}
+                <img 
+                  src={isDark ? "/background1.png" : "/background3.png"} 
+                  alt="Background" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </motion.div>
           </div>
@@ -314,7 +318,11 @@ function App() {
             </div>
           </div>
           <div className="relative">
-            <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100" />
+            <img 
+              src={isDark ? "/background2.png" : "/background4.png"} 
+              alt="Background" 
+              className="aspect-[4/3] w-full overflow-hidden rounded-2xl object-cover"
+            />
           </div>
         </div>
       </section>
