@@ -40,11 +40,6 @@ jobs:
           local_path: './projet-1/build/*' # Le dossier local à transférer
           remote_path: '/public_html/' # Le dossier cible sur Hostinger
           sftp_only: true # Force l'utilisation de SFTP
-          exclude: |
-            **/.git*
-            **/.ftppass
-            **/node_modules
-            **/build/static/**/*.map # Exclut les sourcemaps pour la production
 
   # Job pour le déploiement du Back-end (Symfony)
   deploy-backend:
