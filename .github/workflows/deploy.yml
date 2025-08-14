@@ -31,16 +31,14 @@ jobs:
         working-directory: ./projet-1 # S'assure d'être dans le bon répertoire pour le build
         run: npm run build # Exécute la commande de build de React (crée le dossier 'build')
 
-      - name: 🚀 Déploiement du Front-end vers Hostinger via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4 # Action GitHub pour le déploiement SFTP (adapté pour Hostinger)
+      - name: 🚀 Déploiement du Front-end vers Hostinger via FTP
+        uses: sebastianpopp/ftp-action@releases/v2
         with:
-          server: ${{ secrets.FTP_SERVER }} # L'adresse de votre serveur Hostinger
-          username: ${{ secrets.FTP_USERNAME }} # Votre nom d'utilisateur Hostinger
+          host: ${{ secrets.FTP_SERVER }} # L'adresse de votre serveur Hostinger
+          user: ${{ secrets.FTP_USERNAME }} # Votre nom d'utilisateur Hostinger
           password: ${{ secrets.FTP_PASSWORD }} # Votre mot de passe Hostinger
-          port: ${{ secrets.SSH_PORT || '22' }} # Port SSH (22 par défaut, ou custom)
-          local_path: './projet-1/build/*' # Le dossier local à transférer
-          remote_path: '/public_html/' # Le dossier cible sur Hostinger
-          sftp_only: true # Force l'utilisation de SFTP
+          localDir: 'projet-1/build' # Le dossier local à transférer
+          remoteDir: '/public_html' # Le dossier cible sur Hostinger
 
   # Job pour le déploiement du Back-end (Symfony)
   deploy-backend:
