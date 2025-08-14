@@ -56,15 +56,18 @@ jobs:
           extensions: mbstring, pdo_mysql, zip, gd
           tools: composer:v2
 
-      - name: 📦 Installation des dépendances Symfony
-        working-directory: ./be/app
-        run: composer install --no-dev --optimize-autoloader
-
       - name: 🧹 Configuration de l'environnement de production
         working-directory: ./be/app
         run: |
           echo "APP_ENV=prod" > .env.local
           echo "APP_DEBUG=false" >> .env.local
+
+      - name: 📦 Installation des dépendances Symfony
+        working-directory: ./be/app
+        env:
+          APP_ENV: prod
+          APP_DEBUG: false
+        run: composer install --no-dev --optimize-autoloader --no-scripts
 
       - name: 🧹 Nettoyage du cache et préparation
         working-directory: ./be/app
