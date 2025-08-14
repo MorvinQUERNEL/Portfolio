@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { FiMoon, FiSun, FiPhone, FiMail, FiMapPin, FiExternalLink, FiGithub, FiServer, FiCheck, FiX } from 'react-icons/fi';
-import { testApiConnection, login, fetchProfile } from './store/authSlice';
+import { FiMoon, FiSun, FiPhone, FiMail, FiExternalLink, FiGithub, FiServer, FiCheck, FiX } from 'react-icons/fi';
+import { testApiConnection, fetchProfile } from './store/authSlice';
 import { api } from './lib/apiClient';
 
 function App() {
   const dispatch = useDispatch();
-  const { apiStatus, token, user, status, error } = useSelector((state) => state.auth);
+  const { apiStatus, token, user } = useSelector((state) => state.auth);
 
   // Theme
   const [isDark, setIsDark] = useState(() => {
@@ -68,29 +68,6 @@ function App() {
   }, []);
 
   const toggleTheme = () => setIsDark((v) => !v);
-  const projects = [
-    {
-      title: 'Dashboard Analytics',
-      description:
-        "Tableau de bord interactif avec graphiques temps réel et filtres avancés.",
-      tags: ['React', 'Tailwind', 'Recharts'],
-      link: '#',
-    },
-    {
-      title: 'E‑commerce UI',
-      description:
-        "Design moderne pour boutique en ligne, panier persistant et checkout.",
-      tags: ['React', 'Zustand', 'Tailwind'],
-      link: '#',
-    },
-    {
-      title: 'Landing SaaS',
-      description:
-        "Landing page optimisée SEO avec sections pricing et témoignages animés.",
-      tags: ['React', 'Tailwind', 'Framer Motion'],
-      link: '#',
-    },
-  ];
 
   const skills = [
     'React',
