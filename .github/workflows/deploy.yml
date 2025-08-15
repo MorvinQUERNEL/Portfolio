@@ -6,10 +6,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'projet-1/**'  # Déclenche seulement si le frontend change
-      - 'be/**'        # Déclenche seulement si le backend change
-      - '.github/workflows/**'  # Déclenche si le workflow change
 
 jobs:
   # Job pour le déploiement du Front-end (React)
@@ -48,10 +44,6 @@ jobs:
   deploy-backend:
     runs-on: ubuntu-latest
     needs: deploy-frontend # Ce job ne commencera qu'après que 'deploy-frontend' soit terminé avec succès
-    env:
-      FTP_SERVER: ${{ secrets.FTP_SERVER }}
-      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
 
     steps:
       - name: 🗂️ Checkout du code du dépôt
@@ -68,22 +60,7 @@ jobs:
         working-directory: ./be/app
         run: |
           echo "APP_ENV=prod" > .env.local
-          echo "APP_SECRET=68207a7a25f8c8c61a5fb45bcb4cb995" >> .env.local
           echo "APP_DEBUG=false" >> .env.local
-          echo 'DATABASE_URL="mysql://u729245499_MorvinQuernel:MorvinKevin0812@srv2000.hstgr.io:3306/u729245499_Portfolio"' >> .env.local
-          echo "# ?serverVersion=10.11.10-MariaDB" >> .env.local
-          echo "MESSENGER_TRANSPORT_DSN=doctrine://default?auto_setup=0" >> .env.local
-          echo "" >> .env.local
-          echo "MAILER_DSN=gmail+smtp://quernel.morvin@gmail.com:votre-mot-de-passe-app@default" >> .env.local
-          echo "" >> .env.local
-          echo "# CORS_ALLOW_ORIGIN='^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'" >> .env.local
-          echo "CORS_ALLOW_ORIGIN=https://morvin-quernel.com" >> .env.local
-          echo "" >> .env.local
-          echo "JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem" >> .env.local
-          echo "JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem" >> .env.local
-          echo "JWT_PASSPHRASE=8eb578eff730a7f04d1cd9ddc70c83d2a3e78177fed8d631858126731355ae9a" >> .env.local
-          echo "" >> .env.local
-          echo "REACT_APP_API_URL=http://localhost:8080" >> .env.local
 
       - name: 📦 Installation des dépendances Symfony
         working-directory: ./be/app
@@ -92,40 +69,20 @@ jobs:
           APP_DEBUG: false
         run: composer install --no-dev --optimize-autoloader --no-scripts
 
-      - name: 🧹 Préparation des dossiers et permissions
+      - name: 🧹 Nettoyage du cache et préparation
         working-directory: ./be/app
+        env:
+          APP_ENV: prod
+          APP_DEBUG: false
         run: |
-          mkdir -p var/cache
-          mkdir -p var/log
-          mkdir -p var/sessions
-          mkdir -p public/bundles
+          php bin/console cache:clear --env=prod --no-debug
           chmod -R 755 var/
-          chmod -R 755 public/
-          
-      - name: 📝 Création du fichier .htaccess pour routage API
-        working-directory: ./be/app
-        run: |
-          cat > .htaccess << 'EOF'
-          # Router les requêtes vers Symfony
-          RewriteEngine On
-          RewriteCond %{REQUEST_FILENAME} !-f
-          RewriteCond %{REQUEST_FILENAME} !-d
-          RewriteRule ^(.*)$ public/index.php [L,QSA]
-          
-          # Headers CORS
-          <IfModule mod_headers.c>
-              Header always set Access-Control-Allow-Origin "*"
-              Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
-              Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
-          </IfModule>
-          EOF
 
       - name: 🚀 Déploiement du Back-end vers Hostinger via FTP
         uses: sebastianpopp/ftp-action@releases/v2
         with:
-          host: ${{ env.FTP_SERVER }}
-          user: ${{ env.FTP_USERNAME }}
-          password: ${{ env.FTP_PASSWORD }}
+          host: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           localDir: 'be/app'
           remoteDir: '/public_html/api'
-          options: '--delete --exclude=node_modules/ --exclude=.git/'
