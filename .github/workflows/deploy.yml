@@ -92,14 +92,11 @@ jobs:
           APP_DEBUG: false
         run: composer install --no-dev --optimize-autoloader --no-scripts
 
-      - name: 🧹 Nettoyage du cache et préparation
+      - name: 🧹 Préparation des permissions
         working-directory: ./be/app
-        env:
-          APP_ENV: prod
-          APP_DEBUG: false
         run: |
-          php bin/console cache:clear --env=prod --no-debug
           chmod -R 755 var/
+          chmod -R 755 public/
 
       - name: 🚀 Déploiement du Back-end vers Hostinger via FTP
         uses: sebastianpopp/ftp-action@releases/v2
