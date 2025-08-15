@@ -1,6 +1,6 @@
 nelmio_cors:
     defaults:
-        allow_origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003']
+        allow_origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003', 'https://morvin-quernel.com', 'https://www.morvin-quernel.com']
         allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
         allow_headers: ['Content-Type', 'Authorization']
         expose_headers: ['Link', 'X-Total-Count']

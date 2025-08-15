@@ -1,7 +1,18 @@
 import axios from 'axios';
 
+// Configuration dynamique de l'URL de l'API selon l'environnement
+const getApiBaseUrl = () => {
+  if (window.location.hostname === 'morvin-quernel.com' || window.location.hostname === 'www.morvin-quernel.com') {
+    // En production, utiliser le domaine principal
+    return 'https://morvin-quernel.com/api';
+  } else {
+    // En développement, utiliser localhost
+    return 'http://localhost:8080/api';
+  }
+};
+
 export const api = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: getApiBaseUrl(),
   withCredentials: false,
 });
 

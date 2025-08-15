@@ -191,7 +191,7 @@ function App() {
               <p className="mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-300">
               J'ai aquis de nombreuses compétences l'<a href="https://www.eedn.fr/" target="_blank" rel="noreferrer" className="text-blue-600 hover:underline">EEDN</a>, une école des métiers du numérique qui m’a formé à la création d’applications web performantes et robustes.
               </p>
-              <p>
+              <p className="mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-300">
               Actuellement à la recherche d’une alternance en tant que concepteur-développeur d’applications, je souhaite mettre mes compétences techniques et mon dynamisme au service d’une entreprise innovante, tout en poursuivant ma formation et mon apprentissage des bonnes pratiques du métier.
               </p>
               <p className="mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-300">
