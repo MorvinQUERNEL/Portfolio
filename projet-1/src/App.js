@@ -6,7 +6,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { FiMoon, FiSun, FiPhone, FiMail, FiExternalLink, FiGithub, FiServer, FiCheck, FiX } from 'react-icons/fi';
 import { testApiConnection, fetchProfile } from './store/authSlice';
-import { api } from './lib/apiClient';
+// import { api } from './lib/apiClient'; // TODO: Restaurer quand API fonctionnelle
 
 function App() {
   const dispatch = useDispatch();
