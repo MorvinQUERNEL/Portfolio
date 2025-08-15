@@ -74,7 +74,7 @@ jobs:
           echo "# ?serverVersion=10.11.10-MariaDB" >> .env.local
           echo "MESSENGER_TRANSPORT_DSN=doctrine://default?auto_setup=0" >> .env.local
           echo "" >> .env.local
-          echo "MAILER_DSN=null://null" >> .env.local
+          echo "MAILER_DSN=gmail+smtp://quernel.morvin@gmail.com:votre-mot-de-passe-app@default" >> .env.local
           echo "" >> .env.local
           echo "# CORS_ALLOW_ORIGIN='^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'" >> .env.local
           echo "CORS_ALLOW_ORIGIN=https://morvin-quernel.com" >> .env.local

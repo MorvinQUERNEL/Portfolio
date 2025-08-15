@@ -134,7 +134,7 @@ function App() {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
                       <div className="flex items-center gap-3">
               <img src="/mq_logo.png" alt="Logo" className="h-8 w-8" />
-              <a href="#accueil" className="text-lg font-semibold tracking-tight">Portfolio Morvin Quernel</a>
+              <a href="#accueil" className="text-lg font-semibold tracking-tight"> Morvin Quernel</a>
             </div>
           <nav className="hidden gap-6 md:flex">
             <a href="#projets" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Projets</a>

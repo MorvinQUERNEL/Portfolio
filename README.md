@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="projet-1/public/mq_logo.png" alt="Logo Morvin Quernel" width="120" height="120" />
+</div>
+
 # 🚀 Portfolio Personnel - Morvin QUERNEL
 
 > **Développé entièrement par Morvin QUERNEL** - Portfolio professionnel moderne avec architecture full-stack
@@ -30,11 +34,13 @@ Ce portfolio présente une architecture complète full-stack développée de A �
 - **Validation** des données
 - **Tests** avec PHPUnit
 
-### 🐳 Infrastructure
+### 🐳 Infrastructure & DevOps
 - **Docker Compose** pour l'environnement complet
 - **Apache** configuré pour le backend
 - **PHP 8.2+** avec extensions optimisées
 - **Base de données** relationnelle
+- **GitHub Actions** pour le déploiement automatisé
+- **Hostinger** pour l'hébergement production
 
 ## 🛠️ Technologies Utilisées
 
@@ -56,6 +62,8 @@ Ce portfolio présente une architecture complète full-stack développée de A �
 ### DevOps & Outils
 - **Docker & Docker Compose** - Containerisation
 - **Apache** - Serveur web
+- **GitHub Actions** - CI/CD automatisé
+- **Hostinger** - Hébergement web
 - **Composer** - Gestionnaire de dépendances PHP
 - **Git** - Contrôle de version
 
@@ -157,6 +165,9 @@ npm test
 - ✅ **Containerisation Docker** complète
 - ✅ **Tests automatisés** frontend et backend
 - ✅ **Optimisation des performances** avec lazy loading
+- ✅ **CI/CD GitHub Actions** pour déploiement automatisé
+- ✅ **Configuration CORS** pour production
+- ✅ **Hébergement Hostinger** avec SSL
 
 ## 🌟 Points Forts du Développement
 
@@ -164,9 +175,34 @@ npm test
 - **Code propre** avec bonnes pratiques
 - **Documentation** complète
 - **Tests** automatisés
-- **Déploiement** simplifié avec Docker
+- **CI/CD** avec GitHub Actions
+- **Déploiement** automatisé sur Hostinger
 - **Performance** optimisée
 - **Sécurité** renforcée (JWT, CORS, validation)
+- **Configuration** environnementale automatique
+
+## 🚀 Déploiement Automatisé
+
+Ce portfolio utilise **GitHub Actions** pour un déploiement automatisé sur **Hostinger** :
+
+### 🔄 Workflow CI/CD
+- **Déclenchement automatique** à chaque push sur `main`
+- **Build du frontend** React optimisé pour la production
+- **Déploiement backend** Symfony avec configuration de production
+- **Déploiement conditionnel** selon les fichiers modifiés
+- **Optimisations FTP** pour des déploiements rapides
+
+### 📋 Pipeline de Déploiement
+1. **Frontend** : Build React → Upload vers `/public_html/`
+2. **Backend** : Configuration Symfony → Upload vers `/public_html/api/`
+3. **Configuration automatique** des variables d'environnement
+4. **Création des dossiers** et permissions
+5. **Configuration Apache** avec routage automatique
+
+### 🌐 URLs de Production
+- **Site web** : https://morvin-quernel.com
+- **API** : https://morvin-quernel.com/api
+- **Documentation API** : https://morvin-quernel.com/api/docs
 
 ## 📈 Évolutions Futures
 
@@ -174,7 +210,7 @@ npm test
 - [ ] **Blog intégré** avec gestion de contenu
 - [ ] **Dashboard admin** pour la gestion
 - [ ] **Analytics** et métriques de performance
-- [ ] **CI/CD** automatisé
+- [x] **CI/CD** automatisé ✅
 - [ ] **Monitoring** et logging avancés
 
 ## 👨‍💻 Développeur
