@@ -92,11 +92,33 @@ jobs:
           APP_DEBUG: false
         run: composer install --no-dev --optimize-autoloader --no-scripts
 
-      - name: 🧹 Préparation des permissions
+      - name: 🧹 Préparation des dossiers et permissions
         working-directory: ./be/app
         run: |
+          mkdir -p var/cache
+          mkdir -p var/log
+          mkdir -p var/sessions
+          mkdir -p public/bundles
           chmod -R 755 var/
           chmod -R 755 public/
+          
+      - name: 📝 Création du fichier .htaccess pour routage API
+        working-directory: ./be/app
+        run: |
+          cat > .htaccess << 'EOF'
+          # Router les requêtes vers Symfony
+          RewriteEngine On
+          RewriteCond %{REQUEST_FILENAME} !-f
+          RewriteCond %{REQUEST_FILENAME} !-d
+          RewriteRule ^(.*)$ public/index.php [L,QSA]
+          
+          # Headers CORS
+          <IfModule mod_headers.c>
+              Header always set Access-Control-Allow-Origin "*"
+              Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+              Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+          </IfModule>
+          EOF
 
       - name: 🚀 Déploiement du Back-end vers Hostinger via FTP
         uses: sebastianpopp/ftp-action@releases/v2
@@ -104,5 +126,6 @@ jobs:
           host: ${{ env.FTP_SERVER }}
           user: ${{ env.FTP_USERNAME }}
           password: ${{ env.FTP_PASSWORD }}
-          localDir: 'be/app/public'
+          localDir: 'be/app'
           remoteDir: '/public_html/api'
+          options: '--delete --exclude=node_modules/ --exclude=.git/'
