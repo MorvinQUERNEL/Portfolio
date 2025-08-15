@@ -43,20 +43,15 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }} # Votre mot de passe Hostinger
           localDir: 'projet-1/build' # Le dossier local à transférer
           remoteDir: '/public_html' # Le dossier cible sur Hostinger
-          dangerousCleanup: true # Nettoie les anciens fichiers pour éviter l'accumulation
-          exclude: |
-            **/.DS_Store
-            **/Thumbs.db
-            **/.git
-            **/.github
-            **/node_modules
-            **/tests
-            **/*.log
 
   # Job pour le déploiement du Back-end (Symfony) via FTP
   deploy-backend:
     runs-on: ubuntu-latest
     needs: deploy-frontend # Ce job ne commencera qu'après que 'deploy-frontend' soit terminé avec succès
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
+      FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+      FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
 
     steps:
       - name: 🗂️ Checkout du code du dépôt
@@ -94,20 +89,8 @@ jobs:
       - name: 🚀 Déploiement du Back-end vers Hostinger via FTP
         uses: sebastianpopp/ftp-action@releases/v2
         with:
-          host: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          host: ${{ env.FTP_SERVER }}
+          user: ${{ env.FTP_USERNAME }}
+          password: ${{ env.FTP_PASSWORD }}
           localDir: 'be/app'
           remoteDir: '/public_html/api'
-          dangerousCleanup: true # Nettoie les anciens fichiers
-          exclude: |
-            **/.DS_Store
-            **/Thumbs.db
-            **/.git
-            **/.github
-            **/node_modules
-            **/tests
-            **/*.log
-            **/var/cache/*
-            **/var/log/*
-            **/vendor/composer/*
