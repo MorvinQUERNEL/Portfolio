@@ -3,7 +3,7 @@ import axios from 'axios';
 // Configuration dynamique de l'URL de l'API selon l'environnement
 const getApiBaseUrl = () => {
   if (window.location.hostname === 'morvin-quernel.com' || window.location.hostname === 'www.morvin-quernel.com') {
-    // En production, utiliser le domaine principal
+    // En production, utiliser le sous-dossier api sur Hostinger
     return 'https://morvin-quernel.com/api';
   } else {
     // En développement, utiliser localhost

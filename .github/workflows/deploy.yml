@@ -68,7 +68,22 @@ jobs:
         working-directory: ./be/app
         run: |
           echo "APP_ENV=prod" > .env.local
+          echo "APP_SECRET=68207a7a25f8c8c61a5fb45bcb4cb995" >> .env.local
           echo "APP_DEBUG=false" >> .env.local
+          echo 'DATABASE_URL="mysql://u729245499_MorvinQuernel:MorvinKevin0812@srv2000.hstgr.io:3306/u729245499_Portfolio"' >> .env.local
+          echo "# ?serverVersion=10.11.10-MariaDB" >> .env.local
+          echo "MESSENGER_TRANSPORT_DSN=doctrine://default?auto_setup=0" >> .env.local
+          echo "" >> .env.local
+          echo "MAILER_DSN=null://null" >> .env.local
+          echo "" >> .env.local
+          echo "# CORS_ALLOW_ORIGIN='^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'" >> .env.local
+          echo "CORS_ALLOW_ORIGIN=https://morvin-quernel.com" >> .env.local
+          echo "" >> .env.local
+          echo "JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem" >> .env.local
+          echo "JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem" >> .env.local
+          echo "JWT_PASSPHRASE=8eb578eff730a7f04d1cd9ddc70c83d2a3e78177fed8d631858126731355ae9a" >> .env.local
+          echo "" >> .env.local
+          echo "REACT_APP_API_URL=http://localhost:8080" >> .env.local
 
       - name: 📦 Installation des dépendances Symfony
         working-directory: ./be/app
@@ -92,5 +107,5 @@ jobs:
           host: ${{ env.FTP_SERVER }}
           user: ${{ env.FTP_USERNAME }}
           password: ${{ env.FTP_PASSWORD }}
-          localDir: 'be/app'
+          localDir: 'be/app/public'
           remoteDir: '/public_html/api'
