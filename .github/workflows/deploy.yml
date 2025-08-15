@@ -6,6 +6,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'projet-1/**'  # Déclenche seulement si le frontend change
+      - 'be/**'        # Déclenche seulement si le backend change
+      - '.github/workflows/**'  # Déclenche si le workflow change
 
 jobs:
   # Job pour le déploiement du Front-end (React)
@@ -39,6 +43,15 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }} # Votre mot de passe Hostinger
           localDir: 'projet-1/build' # Le dossier local à transférer
           remoteDir: '/public_html' # Le dossier cible sur Hostinger
+          dangerousCleanup: true # Nettoie les anciens fichiers pour éviter l'accumulation
+          exclude: |
+            **/.DS_Store
+            **/Thumbs.db
+            **/.git
+            **/.github
+            **/node_modules
+            **/tests
+            **/*.log
 
   # Job pour le déploiement du Back-end (Symfony) via FTP
   deploy-backend:
@@ -86,3 +99,15 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           localDir: 'be/app'
           remoteDir: '/public_html/api'
+          dangerousCleanup: true # Nettoie les anciens fichiers
+          exclude: |
+            **/.DS_Store
+            **/Thumbs.db
+            **/.git
+            **/.github
+            **/node_modules
+            **/tests
+            **/*.log
+            **/var/cache/*
+            **/var/log/*
+            **/vendor/composer/*
