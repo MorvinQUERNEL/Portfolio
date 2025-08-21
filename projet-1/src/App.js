@@ -305,7 +305,7 @@ function App() {
             </ul>
             <div className="mt-5 flex gap-3">
               <a href="#contact" className="rounded-lg bg-gray-900 px-5 py-3 text-sm font-semibold text-white hover:bg-black">Travaillons ensemble</a>
-              <a href="/CV-Morvin-Quernel.pdf" className="rounded-lg border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50" download>
+              <a href="/CV-morvin.pdf" className="rounded-lg border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-50" download>
                 Télécharger mon CV
               </a>
             </div>
